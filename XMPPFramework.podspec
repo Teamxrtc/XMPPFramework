@@ -39,7 +39,7 @@ grep '#define _XMPP_' -r /Extensions \
 | perl -pe 's/Extensions\/([A-z0-9_]*)\/([A-z]*.h).*/\n#ifdef HAVE_XMPP_SUBSPEC_\U\1\n\E#import "\2"\n#endif/' \
 >> XMPPFramework.h
 END
-
+
 s.preserve_path = 'module/module.modulemap'
 #s.module_map = 'module/module.modulemap'
 
@@ -53,6 +53,7 @@ core.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(inherited) $(SDKROOT)/usr/include/
 core.dependency 'CocoaLumberjack','~>1.9'
 core.dependency 'CocoaAsyncSocket','~>7.4.1'
 core.ios.dependency 'XMPPFramework/KissXML'
+core.dependency 'SocketRocket', '~>0.4'
 end
 
 s.subspec 'Authentication' do |ss|
@@ -316,4 +317,20 @@ ss.source_files = 'Extensions/XEP-0335/**/*.{h,m}'
 ss.dependency 'XMPPFramework/Core'
 ss.prefix_header_contents = "#define HAVE_XMPP_SUBSPEC_#{name.upcase.sub('-', '_')}"
 end
+
+#s.subspec 'XEP-0166' do |ss|
+#ss.source = {  :git => 'https://github.com/teamxrtc/XEP-0166.git',
+#               :tag => '0.1.0' }
+#ss.source_files = '*.{h,m}'
+#ss.dependency 'XMPPFramework/Core'
+#ss.prefix_header_contents = "#define HAVE_XMPP_SUBSPEC_#{name.upcase.sub('-', '_')}"
+#end
+
+#s.subspec 'XEP-0327' do |ss|
+#ss.source = { :git => 'https://github.com/teamrtc/XEP-0327.git',
+#							:tag => '0.1.0' }
+#ss.source_files = '*.{h,m}'
+#ss.dependency 'XMPPFramework/Core'
+#ss.prefix_header_contents = "#define HAVE_XMPP_SUBSPEC_#{name.upcase.sub('-', '_')}"
+#end
 end

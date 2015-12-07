@@ -4,6 +4,9 @@
 #import "GCDMulticastDelegate.h"
 #import "CocoaAsyncSocket/GCDAsyncSocket.h"
 
+// Manish
+#import "SRWebSocket.h"
+
 #if TARGET_OS_IPHONE
   #import "DDXML.h"
 #endif
@@ -45,7 +48,7 @@ typedef NS_ENUM(NSUInteger, XMPPStreamStartTLSPolicy) {
 
 extern const NSTimeInterval XMPPStreamTimeoutNone;
 
-@interface XMPPStream : NSObject <GCDAsyncSocketDelegate>
+@interface XMPPStream : NSObject <GCDAsyncSocketDelegate, SRWebSocketDelegate>
 
 /**
  * Standard XMPP initialization.
@@ -110,6 +113,8 @@ extern const NSTimeInterval XMPPStreamTimeoutNone;
  * The default port is 5222.
 **/
 @property (readwrite, assign) UInt16 hostPort;
+
+@property (nonatomic) NSString *mucId;
 
 /**
  * The stream's policy on when to Start TLS.
